@@ -40,6 +40,9 @@ public static class Program
 
     config.AddCommand<GetMeanTimeToRecoveryCommand>("get-mean-time-to-recovery")
           .WithDescription("Gets the mean time to recovery for a specified period.");
+
+    config.AddCommand<VersionCommand>("version")
+          .WithDescription("Displays the application version.");
 });
 
 return app.Run(args);
