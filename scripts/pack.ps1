@@ -1,12 +1,12 @@
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory=$false, HelpMessage="Configuration to pack (e.g., Debug, Release)")]
+    [Parameter(Mandatory=$false, HelpMessage="Configuration to build (e.g., Debug, Release)")]
     [ValidateSet("Debug", "Release")]
     [string]$Configuration = "Release"
 )
 
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
-$CliProjectPath = Join-Path -Path $PSScriptRoot -ChildPath "..\src\esigs.dora-cli" -Resolve
+$SolutionPath = Join-Path -Path $PSScriptRoot -ChildPath ".." -Resolve
 
-Write-Host "Packing esigs.dora-cli with configuration: $Configuration"
-dotnet pack "$CliProjectPath" --configuration $Configuration --no-build
+Write-Host "Packing cli with configuration: $Configuration"
+dotnet pack "$SolutionPath/src/esigs.dora-cli/esigs.dora-cli.csproj" --configuration $Configuration --no-build

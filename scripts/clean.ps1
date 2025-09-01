@@ -1,22 +1,34 @@
 [CmdletBinding()]
-param()
+param(
+    [Parameter(Mandatory=$false, HelpMessage="Configuration to build (e.g., Debug, Release)")]
+    [ValidateSet("Debug", "Release")]
+    [string]$Configuration = "Release"
+)
 
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
-$SolutionPath = Join-Path -Path $PSScriptRoot -ChildPath "..\dora-cli.sln" -Resolve
+$SolutionPath = Join-Path -Path $PSScriptRoot -ChildPath ".." -Resolve
 
-Write-Host "Cleaning dora-cli solution..."
-dotnet clean $SolutionPath
+Write-Host "Cleaning solution with configuration: $Configuration"
+dotnet clean "$SolutionPath/dora-cli.sln" --configuration $Configuration
 
-Write-Host "Removing publish_output directory..."
-$PublishOutputDirectory = Join-Path -Path $PSScriptRoot -ChildPath "..\src\esigs.dora-cli\publish_output" -Resolve
-if (Test-Path $PublishOutputDirectory) {
-    Remove-Item -Path $PublishOutputDirectory -Recurse -Force
+# Explicitly remove NuGet package output directories
+$cliBinPath = "$SolutionPath/src/esigs.dora-cli/bin/$Configuration"
+$cliObjPath = "$SolutionPath/src/esigs.dora-cli/obj/$Configuration"
+$cliNupkgPath = "$SolutionPath/src/esigs.dora-cli/nupkg"
+
+if (Test-Path $cliBinPath) {
+    Write-Host "Removing bin directory: $cliBinPath"
+    Remove-Item -Path $cliBinPath -Recurse -Force
 }
 
-Write-Host "Removing nupkg files..."
-$NupkgDirectory = Join-Path -Path $PSScriptRoot -ChildPath "..\src\esigs.dora-cli\nupkg" -Resolve
-if (Test-Path $NupkgDirectory) {
-    Remove-Item -Path (Join-Path $NupkgDirectory "*.nupkg") -Force
+if (Test-Path $cliObjPath) {
+    Write-Host "Removing obj directory: $cliObjPath"
+    Remove-Item -Path $cliObjPath -Recurse -Force
 }
 
-Write-Host "Clean operation completed."
+if (Test-Path $cliNupkgPath) {
+    Write-Host "Removing nupkg directory: $cliNupkgPath"
+    Remove-Item -Path $cliNupkgPath -Recurse -Force
+}
+
+Write-Host "Clean complete."

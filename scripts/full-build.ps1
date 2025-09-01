@@ -25,6 +25,14 @@ if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
 
+# Test
+Write-Host "--- Running Test ---"
+pwsh ./scripts/test.ps1 -Configuration $Configuration
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Tests failed with exit code $LASTEXITCODE"
+    exit $LASTEXITCODE
+}
+
 # Pack
 Write-Host "--- Running Pack ---"
 pwsh ./scripts/pack.ps1 -Configuration $Configuration
