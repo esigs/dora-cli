@@ -5,6 +5,7 @@ in pkgs.mkShell {
         buildInputs = [ 
 		pkgs.dotnetCorePackages.sdk_9_0
 		pkgs.nodejs
+		pkgs.powershell
         ];
 
 
