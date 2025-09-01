@@ -9,7 +9,7 @@ param(
 )
 
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
-$CliProjectPath = Join-Path -Path $PSScriptRoot -ChildPath ".." -ChildPath "src" -ChildPath "esigs.dora-cli" -Resolve
+$CliProjectPath = Join-Path -Path $PSScriptRoot -ChildPath "..\src\esigs.dora-cli" -Resolve
 
 Write-Host "Publishing esigs.dora-cli for $RuntimeIdentifier with configuration: $Configuration"
 dotnet publish "$CliProjectPath" --configuration $Configuration --runtime $RuntimeIdentifier --self-contained true
