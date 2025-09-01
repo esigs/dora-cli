@@ -1,6 +1,6 @@
 # Build and Publishing Scripts
 
-This directory contains PowerShell scripts to automate the build, test, packaging, and publishing processes for the Dora CLI project.
+This directory contains PowerShell scripts to automate the build, packaging, and publishing processes for the Dora CLI project.
 
 ## Getting Started
 
@@ -17,13 +17,7 @@ To build the entire solution, navigate to the project's root directory and run:
 pwsh ./scripts/build.ps1
 ```
 
-### Running Tests
 
-To execute all unit tests, run the following command from the project's root directory:
-
-```bash
-pwsh ./scripts/test.ps1
-```
 
 ### Packaging
 
