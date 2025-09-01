@@ -8,6 +8,36 @@ This is a command-line interface (CLI) tool for tracking and managing DORA (DevO
 *   **Record Deployments:** Log deployment events.
 *   **Record Incidents:** Log incident events.
 
+## Installation
+
+The DORA CLI can be installed as a .NET global tool.
+
+### From NuGet.org
+
+Once the `esigs.dora-cli` package is published to NuGet.org, you can install it globally using:
+
+```bash
+dotnet tool install --global esigs.dora-cli
+```
+
+To install a specific version:
+
+```bash
+dotnet tool install --global esigs.dora-cli --version <VERSION_NUMBER>
+```
+
+### From Source
+
+To install the tool directly from the source code, first build the project (see [Build Instructions](#build-instructions)). After a successful build, the NuGet package will be located in `src/esigs.dora-cli/bin/Release/`.
+
+Then, install the tool globally using:
+
+```bash
+dotnet tool install --global esigs.dora-cli --add-source ./src/esigs.dora-cli/bin/Release/
+```
+
+After installation, the tool can be run using the command `esigs-dora`.
+
 ## Build Instructions
 
 To build the DORA CLI, you will need:
@@ -35,8 +65,6 @@ pwsh scripts/publish.ps1
 The `publish.ps1` script will prompt for confirmation before pushing the package to NuGet.org.
 
 ## Usage
-
-Once built, you can run the CLI tool. If installed as a .NET tool, the command will be `esigs-dora`.
 
 Example commands:
 
