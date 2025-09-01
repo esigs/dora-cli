@@ -1,1 +1,20 @@
-{ "version": 1, "isRoot": true, "tools": { "nbgv": { "version": "3.6.133", "commands": [ "nbgv" ] } } }
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "nbgv": {
+      "version": "3.6.133",
+      "commands": [
+        "nbgv"
+      ],
+      "rollForward": false
+    },
+    "esigs.dora-cli": {
+      "version": "1.1.13-g654426fff3",
+      "commands": [
+        "esigs-dora"
+      ],
+      "rollForward": false
+    }
+  }
+}
