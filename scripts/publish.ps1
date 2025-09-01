@@ -20,8 +20,8 @@ $SolutionPath = Join-Path -Path $PSScriptRoot -ChildPath ".." -Resolve
 
 Write-Host "Searching for NuGet packages to publish..."
 
-# Automatically find all .nupkg files under src/*/bin/$Configuration
-$packages = Get-ChildItem -Path "$SolutionPath/src" -Recurse -Filter "*.nupkg" | Where-Object { $_.FullName -match ".*/bin/$Configuration/" } | Sort-Object LastWriteTime -Descending
+# Automatically find all .nupkg files under src/*/nupkg/
+$packages = Get-ChildItem -Path "$SolutionPath/src" -Recurse -Filter "*.nupkg" | Where-Object { $_.FullName -match ".*/nupkg/" } | Sort-Object LastWriteTime -Descending
 
 if (-not $packages) {
     Write-Warning "No packages found to publish."
@@ -44,8 +44,7 @@ if (-not $NonInteractive) {
 Write-Host "Publishing NuGet packages to default NuGet.org..."
 
 foreach ($pkg in $packages) {
-    Write-Host "Pushing $($pkg.FullName)"
-    dotnet nuget push $pkg.FullName `
+    Write-Host "Pushing $($pkg.FullName)" `
         --source "https://api.nuget.org/v3/index.json" `
         --api-key $apiKey `
         --skip-duplicate `

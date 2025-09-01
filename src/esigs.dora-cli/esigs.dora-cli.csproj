@@ -5,9 +5,11 @@
     <ToolCommandName>esigs-dora</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <RootNamespace>esigs.dora_cli</RootNamespace>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
     <PackageReference Include="esigs.dora.lib" Version="1.1.8-g570dda1647" />
     <PackageReference Include="Spectre.Console" Version="0.50.0" />
     <PackageReference Include="Spectre.Console.Cli" Version="0.50.0" />
