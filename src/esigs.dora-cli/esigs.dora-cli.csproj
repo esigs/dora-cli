@@ -3,7 +3,7 @@
   <PropertyGroup>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>esigs-dora</ToolCommandName>
-    <PackageOutputPath>./nupkg</PackageOutputPath>
+    
     <RootNamespace>esigs.dora_cli</RootNamespace>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
