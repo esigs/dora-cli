@@ -1,40 +1,22 @@
 [CmdletBinding()]
-param(
-    [Parameter(Mandatory=$false, HelpMessage="Configuration to clean (e.g., Debug, Release)")]
-    [ValidateSet("Debug", "Release")]
-    [string]$Configuration = "Release"
-)
+param()
 
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
-$SolutionPath = Join-Path -Path $PSScriptRoot -ChildPath ".." -Resolve
+$SolutionPath = Join-Path -Path $PSScriptRoot -ChildPath "..\dora-cli.sln" -Resolve
 
-Write-Host "Cleaning solution with configuration: $Configuration"
-dotnet clean "$SolutionPath/dora-cli.sln" --configuration $Configuration
+Write-Host "Cleaning dora-cli solution..."
+dotnet clean $SolutionPath
 
-# Explicitly remove project output directories
-$cliBinPath = "$SolutionPath/src/esigs.dora-cli/bin/$Configuration"
-$cliObjPath = "$SolutionPath/src/esigs.dora-cli/obj/$Configuration"
-$cliNupkgPath = "$SolutionPath/src/esigs.dora-cli/nupkg"
-$cliPublishOutputPath = "$SolutionPath/src/esigs.dora-cli/publish_output"
-
-if (Test-Path $cliBinPath) {
-    Write-Host "Removing bin directory: $cliBinPath"
-    Remove-Item -Path $cliBinPath -Recurse -Force
+Write-Host "Removing publish_output directory..."
+$PublishOutputDirectory = Join-Path -Path $PSScriptRoot -ChildPath "..\src\esigs.dora-cli\publish_output" -Resolve
+if (Test-Path $PublishOutputDirectory) {
+    Remove-Item -Path $PublishOutputDirectory -Recurse -Force
 }
 
-if (Test-Path $cliObjPath) {
-    Write-Host "Removing obj directory: $cliObjPath"
-    Remove-Item -Path $cliObjPath -Recurse -Force
+Write-Host "Removing nupkg files..."
+$NupkgDirectory = Join-Path -Path $PSScriptRoot -ChildPath "..\src\esigs.dora-cli\nupkg" -Resolve
+if (Test-Path $NupkgDirectory) {
+    Remove-Item -Path (Join-Path $NupkgDirectory "*.nupkg") -Force
 }
 
-if (Test-Path $cliNupkgPath) {
-    Write-Host "Removing nupkg directory: $cliNupkgPath"
-    Remove-Item -Path $cliNupkgPath -Recurse -Force
-}
-
-if (Test-Path $cliPublishOutputPath) {
-    Write-Host "Removing publish_output directory: $cliPublishOutputPath"
-    Remove-Item -Path $cliPublishOutputPath -Recurse -Force
-}
-
-Write-Host "Clean complete."
+Write-Host "Clean operation completed."

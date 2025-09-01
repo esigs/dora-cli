@@ -6,7 +6,5 @@ param(
 )
 
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
-$SolutionPath = Join-Path -Path $PSScriptRoot -ChildPath ".." -Resolve
-
-Write-Host "Building solution with configuration: $Configuration"
-dotnet build "$SolutionPath/dora-cli.sln" --configuration $Configuration
+Write-Host "Building dora-cli solution with configuration: $Configuration"
+dotnet build dora-cli.sln --configuration $Configuration
