@@ -44,7 +44,8 @@ if (-not $NonInteractive) {
 Write-Host "Publishing NuGet packages to default NuGet.org..."
 
 foreach ($pkg in $packages) {
-    Write-Host "Pushing $($pkg.FullName)" `
+    Write-Host "Pushing $($pkg.FullName)"
+    dotnet nuget push $pkg.FullName `
         --source "https://api.nuget.org/v3/index.json" `
         --api-key $apiKey `
         --skip-duplicate `
